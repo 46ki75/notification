@@ -47,5 +47,5 @@
     // Terraform
     "ghcr.io/devcontainers/features/terraform": {}
   },
-  "postCreateCommand": "echo 'eval \"$(starship init bash)\"' >> ~/.bashrc"
+  "postCreateCommand": "echo 'eval \"$(starship init bash)\"' >> ~/.bashrc && aws configure sso --profile default"
 }
