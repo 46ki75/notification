@@ -7,8 +7,8 @@ pub async fn function_handler(
     event: LambdaEvent<crate::r#type::Input>,
 ) -> Result<Vec<crate::r#type::Notification>, Error> {
     match event.payload {
-        r#type::Input::Create(create_parameter) => {
-            let response = crate::operation::create::create(create_parameter).await?;
+        r#type::Input::Put(put_parameter) => {
+            let response = crate::operation::create::put(put_parameter).await?;
             return Ok(vec![response]);
         }
     };

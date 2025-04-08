@@ -1,5 +1,5 @@
-pub async fn create(
-    parameter: crate::r#type::CreateParameter,
+pub async fn put(
+    parameter: crate::r#type::PutParameter,
 ) -> Result<crate::r#type::Notification, lambda_runtime::Error> {
     let stage_name = std::env::var("STAGE_NAME")?;
 

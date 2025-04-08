@@ -54,20 +54,30 @@ pub struct Notification {
     pub url: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 pub enum Input {
-    Create(CreateParameter),
-    // Read(ReadParameter),
-    // Update(UpdateParameter),
+    Put(PutParameter),
+    // Fetch(FetchParameter),
     // Delete(DeleteParameter),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct CreateParameter {
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct PutParameter {
+    pub pk: Option<String>,
     pub title: String,
     pub details: Option<String>,
-    pub status: Option<crate::r#type::Status>,
-    pub severity: Option<crate::r#type::Severity>,
+    pub status: Option<Status>,
+    pub severity: Option<Severity>,
     pub url: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct FetchParameter {
+    pub status: Vec<Status>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct DeleteParameter {
+    pub pk: Vec<Status>,
 }
