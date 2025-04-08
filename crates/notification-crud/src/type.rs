@@ -55,6 +55,7 @@ pub struct Notification {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(untagged)]
 pub enum Input {
     Create(crate::operation::create::CreateParameter),
     // Read(ReadParameter),
