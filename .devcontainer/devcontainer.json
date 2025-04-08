@@ -43,6 +43,7 @@
 
     // Rust
     "ghcr.io/devcontainers/features/rust": {},
+    "./features/cargo-toolkit": {},
 
     // Terraform
     "ghcr.io/devcontainers/features/terraform": {}
