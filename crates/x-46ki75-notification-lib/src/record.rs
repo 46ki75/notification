@@ -58,7 +58,7 @@ pub struct Notification {
 #[serde(untagged)]
 pub enum Input {
     Put(PutParameter),
-    Read(ReadParameter),
+    Fetch(FetchParameter),
     Delete(DeleteParameter),
 }
 
@@ -73,7 +73,7 @@ pub struct PutParameter {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct ReadParameter {
+pub struct FetchParameter {
     pub status: Vec<Status>,
 }
 
