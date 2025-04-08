@@ -19,9 +19,16 @@ resource "aws_dynamodb_table" "notification" {
     type = "S"
   }
 
+  attribute {
+    # RFC3339
+    name = "notifiedAt"
+    type = "S"
+  }
+
   global_secondary_index {
     name            = "by-status"
     hash_key        = "status"
+    range_key       = "notifiedAt"
     write_capacity  = 3
     read_capacity   = 3
     projection_type = "ALL"
