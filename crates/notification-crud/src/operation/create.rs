@@ -1,15 +1,5 @@
-use serde::{Deserialize, Serialize};
-#[derive(Serialize, Deserialize, Debug)]
-pub struct CreateParameter {
-    pub title: String,
-    pub details: Option<String>,
-    pub status: Option<crate::r#type::Status>,
-    pub severity: Option<crate::r#type::Severity>,
-    pub url: Option<String>,
-}
-
 pub async fn create(
-    parameter: CreateParameter,
+    parameter: crate::r#type::CreateParameter,
 ) -> Result<crate::r#type::Notification, lambda_runtime::Error> {
     let stage_name = std::env::var("STAGE_NAME")?;
 

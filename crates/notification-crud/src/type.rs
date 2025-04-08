@@ -57,8 +57,17 @@ pub struct Notification {
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(untagged)]
 pub enum Input {
-    Create(crate::operation::create::CreateParameter),
+    Create(CreateParameter),
     // Read(ReadParameter),
     // Update(UpdateParameter),
     // Delete(DeleteParameter),
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct CreateParameter {
+    pub title: String,
+    pub details: Option<String>,
+    pub status: Option<crate::r#type::Status>,
+    pub severity: Option<crate::r#type::Severity>,
+    pub url: Option<String>,
 }
