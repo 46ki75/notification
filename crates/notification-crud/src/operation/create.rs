@@ -29,43 +29,41 @@ pub async fn create(
         url: parameter.url,
     };
 
+    let notification_cloned = notification.clone();
+
     let request = dynamodb_client
         .put_item()
         .table_name(table_name)
         .item(
             "PK",
-            aws_sdk_dynamodb::types::AttributeValue::S(String::from(&notification.pk)),
+            aws_sdk_dynamodb::types::AttributeValue::S(notification.pk),
         )
         .item(
             "title",
-            aws_sdk_dynamodb::types::AttributeValue::S(String::from(&notification.title)),
+            aws_sdk_dynamodb::types::AttributeValue::S(notification.title),
         )
         .item(
             "details",
-            aws_sdk_dynamodb::types::AttributeValue::S(String::from(
-                &notification.details.clone().unwrap_or_default(),
-            )),
+            aws_sdk_dynamodb::types::AttributeValue::S(
+                notification.details.clone().unwrap_or_default(),
+            ),
         )
         .item(
             "status",
-            aws_sdk_dynamodb::types::AttributeValue::S(String::from(
-                &notification.status.to_string(),
-            )),
+            aws_sdk_dynamodb::types::AttributeValue::S(notification.status.to_string()),
         )
         .item(
             "severity",
-            aws_sdk_dynamodb::types::AttributeValue::S(String::from(
-                &notification.severity.to_string(),
-            )),
+            aws_sdk_dynamodb::types::AttributeValue::S(notification.severity.to_string()),
         )
         .item(
             "url",
-            aws_sdk_dynamodb::types::AttributeValue::S(String::from(
-                notification.url.clone().unwrap_or_default().to_string(),
-            )),
+            aws_sdk_dynamodb::types::AttributeValue::S(
+                notification.url.unwrap_or_default().to_string(),
+            ),
         );
 
     let _response = request.send().await?;
 
-    Ok(notification)
+    Ok(notification_cloned)
 }
