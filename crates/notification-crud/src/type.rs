@@ -54,41 +54,10 @@ pub struct Notification {
     pub url: Option<String>,
 }
 
-// #[derive(Serialize, Deserialize, Debug)]
-// pub enum Input {
-//     Create(CreateParameter),
-//     Read(ReadParameter),
-//     Update(UpdateParameter),
-//     Delete(DeleteParameter),
-// }
-
-// #[derive(Serialize, Deserialize, Debug)]
-// pub struct CreateParameter {
-//     pub title: String,
-//     pub details: Option<String>,
-//     pub status: Option<Status>,
-//     pub severity: Option<Severity>,
-//     pub url: Option<String>,
-// }
-
-// #[derive(Serialize, Deserialize, Debug)]
-// pub struct ReadParameter {
-//     pub status_query: Vec<Status>,
-// }
-
-// #[derive(Serialize, Deserialize, Debug)]
-// pub struct UpdateParameter {
-//     #[serde(rename = "PK")]
-//     pub pk: String,
-//     pub title: Option<String>,
-//     pub details: Option<String>,
-//     pub status: Option<Status>,
-//     pub severity: Option<Severity>,
-//     pub url: Option<String>,
-// }
-
-// #[derive(Serialize, Deserialize, Debug)]
-// pub struct DeleteParameter {
-//     #[serde(rename = "PK")]
-//     pub pk: String,
-// }
+#[derive(Serialize, Deserialize, Debug)]
+pub enum Input {
+    Create(crate::operation::create::CreateParameter),
+    // Read(ReadParameter),
+    // Update(UpdateParameter),
+    // Delete(DeleteParameter),
+}
