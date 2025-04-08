@@ -11,7 +11,12 @@ pub struct CreateParameter {
 pub async fn create(
     parameter: CreateParameter,
 ) -> Result<crate::r#type::Notification, lambda_runtime::Error> {
-    let table_name = std::env::var("TABLE_NAME")?;
+    let stage_name = std::env::var("STAGE_NAME")?;
+
+    let table_name = format!(
+        "{}-46ki75-notification-dynamodb-table-notification",
+        stage_name
+    );
 
     let aws_sdk_config = aws_config::load_defaults(aws_config::BehaviorVersion::latest()).await;
 

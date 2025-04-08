@@ -2,4 +2,4 @@
 
 ## Environment Variables
 
-- `TABLE_NAME`
+- `STAGE_NAME`
