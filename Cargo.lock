@@ -1538,6 +1538,7 @@ dependencies = [
  "chrono",
  "lambda_runtime",
  "serde",
+ "serde_json",
  "tokio",
  "uuid",
 ]
