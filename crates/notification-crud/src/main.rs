@@ -5,11 +5,11 @@ pub mod r#type;
 
 pub async fn function_handler(
     event: LambdaEvent<crate::r#type::Input>,
-) -> Result<Vec<crate::r#type::Notification>, Error> {
+) -> Result<crate::r#type::NotificationResult, Error> {
     match event.payload {
         r#type::Input::Put(put_parameter) => {
             let response = crate::operation::create::put(put_parameter).await?;
-            return Ok(vec![response]);
+            return Ok(r#type::NotificationResult::Single(response));
         }
     };
 }

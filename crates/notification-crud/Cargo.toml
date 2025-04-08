@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 aws-config = "1.6.1"
 aws-sdk-dynamodb = "1.71.0"
+aws-sdk-lambda = "1.75.0"
 chrono = "0.4.40"
 
 lambda_runtime = "0.13.0"

@@ -55,6 +55,12 @@ pub struct Notification {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum NotificationResult {
+    Single(Notification),
+    Vector(Vec<Notification>),
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 pub enum Input {
     Put(PutParameter),
