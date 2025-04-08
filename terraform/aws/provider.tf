@@ -1,11 +1,11 @@
 terraform {
   required_providers {
-    github = {
+    aws = {
       source  = "hashicorp/aws"
       version = "~> 5.76"
     }
   }
-  
+
   backend "s3" {
     bucket               = "shared-46ki75-notification-s3-bucket-terraform-tfstate"
     workspace_key_prefix = "aws"
