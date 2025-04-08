@@ -61,7 +61,7 @@ pub enum NotificationResult {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-#[serde(untagged)]
+#[serde(rename_all = "camelCase")]
 pub enum Input {
     Put(PutParameter),
     // Fetch(FetchParameter),
