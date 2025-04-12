@@ -1,5 +1,3 @@
-use prost::Message;
-
 async fn invoke(
     sdk_config: &aws_config::SdkConfig,
     stage_name: &str,
@@ -7,11 +5,9 @@ async fn invoke(
 ) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
     let client = aws_sdk_lambda::Client::new(sdk_config);
 
-    let mut body: Vec<u8> = Vec::new();
+    let body = serde_json::to_string(&request)?;
 
-    request.encode(&mut body)?;
-
-    let blob = aws_sdk_lambda::primitives::Blob::from(body);
+    let blob = aws_sdk_lambda::primitives::Blob::from(body.as_bytes());
 
     let request = client
         .invoke()
@@ -29,9 +25,11 @@ async fn invoke(
         .ok_or("Lambda response payload is empty.")?
         .into_inner();
 
-    let result = crate::notification::Response::decode(&*response)?;
+    let result = serde_json::from_slice::<crate::notification::Notification>(&response)?;
 
-    Ok(result)
+    Ok(crate::notification::Response {
+        results: vec![result],
+    })
 }
 
 pub async fn put(
