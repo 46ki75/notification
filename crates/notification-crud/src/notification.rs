@@ -57,6 +57,18 @@ impl std::fmt::Display for Status {
     }
 }
 
+impl From<&str> for Status {
+    fn from(value: &str) -> Self {
+        match value {
+            "NEW" => Self::New,
+            "OPEN" => Self::Open,
+            "RESOLVE" => Self::Resolved,
+            "SUPPRESSED" => Self::Suppressed,
+            _ => Self::New,
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub enum Severity {
     #[default]
@@ -81,6 +93,17 @@ impl std::fmt::Display for Severity {
                 Severity::Error => "ERROR",
             })
         )
+    }
+}
+
+impl From<&str> for Severity {
+    fn from(value: &str) -> Self {
+        match value {
+            "INFO" => Self::Info,
+            "WARN" => Self::Warn,
+            "ERROR" => Self::Error,
+            _ => Self::Info,
+        }
     }
 }
 
