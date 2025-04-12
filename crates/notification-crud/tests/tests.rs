@@ -6,7 +6,7 @@ async fn invoke() {
         &sdk_config,
         x_46ki75_notification_lib::notification::StageName::Development,
         x_46ki75_notification_lib::notification::PutCommand {
-            title: "Integration Test".to_string(),
+            title: Some("Integration Test".to_string()),
             ..Default::default()
         },
     )

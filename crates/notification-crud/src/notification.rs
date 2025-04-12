@@ -112,7 +112,7 @@ pub enum Request {
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct PutCommand {
     pub pk: Option<String>,
-    pub title: String,
+    pub title: Option<String>,
     pub details: Option<String>,
     pub severity: Option<Severity>,
     pub status: Option<Status>,

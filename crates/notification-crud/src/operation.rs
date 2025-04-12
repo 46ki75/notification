@@ -16,7 +16,7 @@ pub async fn put(
 
     let notification = crate::notification::Notification {
         pk,
-        title: command.title,
+        title: command.title.unwrap_or_default(),
         details: command.details,
         status: command.status.unwrap_or_default(),
         severity: command.severity.unwrap_or_default(),
