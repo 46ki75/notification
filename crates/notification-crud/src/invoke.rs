@@ -1,6 +1,6 @@
 async fn invoke(
     sdk_config: &aws_config::SdkConfig,
-    stage_name: &str,
+    stage_name: crate::notification::StageName,
     request: crate::notification::Request,
 ) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
     let client = aws_sdk_lambda::Client::new(sdk_config);
@@ -13,7 +13,7 @@ async fn invoke(
         .invoke()
         .function_name(format!(
             "{}-46ki75-notification-lambda-function-notification-crud",
-            stage_name
+            stage_name.to_string()
         ))
         .qualifier("stable")
         .payload(blob);
@@ -32,7 +32,7 @@ async fn invoke(
 
 pub async fn put(
     sdk_config: &aws_config::SdkConfig,
-    stage_name: &str,
+    stage_name: crate::notification::StageName,
     command: crate::notification::PutCommand,
 ) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
     let request = crate::notification::Request::Put(command);
@@ -44,7 +44,7 @@ pub async fn put(
 
 pub async fn delete(
     sdk_config: &aws_config::SdkConfig,
-    stage_name: &str,
+    stage_name: crate::notification::StageName,
     command: crate::notification::DeleteCommand,
 ) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
     let request = crate::notification::Request::Delete(command);
@@ -56,7 +56,7 @@ pub async fn delete(
 
 pub async fn list(
     sdk_config: &aws_config::SdkConfig,
-    stage_name: &str,
+    stage_name: crate::notification::StageName,
     command: crate::notification::ListCommand,
 ) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
     let request = crate::notification::Request::List(command);

@@ -1,5 +1,31 @@
 use serde::{Deserialize, Serialize};
 
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum StageName {
+    #[serde(rename = "dev")]
+    Development,
+
+    #[serde(rename = "stg")]
+    Staging,
+
+    #[serde(rename = "prod")]
+    Production,
+}
+
+impl std::fmt::Display for StageName {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}",
+            String::from(match self {
+                StageName::Development => "dev",
+                StageName::Staging => "stg",
+                StageName::Production => "prod",
+            })
+        )
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub enum Status {
     #[default]
