@@ -62,3 +62,27 @@ pub async fn put(
 
     Ok(vec![notification_cloned])
 }
+
+pub async fn delete(
+    command: crate::notification::DeleteCommand,
+) -> Result<Vec<crate::notification::Notification>, lambda_runtime::Error> {
+    let stage_name = std::env::var("STAGE_NAME")?;
+
+    let table_name = format!(
+        "{}-46ki75-notification-dynamodb-table-notification",
+        stage_name
+    );
+
+    let aws_sdk_config = aws_config::load_defaults(aws_config::BehaviorVersion::latest()).await;
+
+    let dynamodb_client = std::sync::Arc::new(aws_sdk_dynamodb::Client::new(&aws_sdk_config));
+
+    let request = dynamodb_client
+        .delete_item()
+        .table_name(table_name)
+        .key("PK", aws_sdk_dynamodb::types::AttributeValue::S(command.pk));
+
+    request.send().await?;
+
+    Ok(vec![])
+}
