@@ -39,6 +39,11 @@ resource "aws_iam_policy" "notification_crud" {
   })
 }
 
+resource "aws_iam_role_policy_attachment" "notification_crud" {
+  role       = aws_iam_role.notification_crud.name
+  policy_arn = aws_iam_policy.notification_crud.arn
+}
+
 resource "aws_lambda_function" "notification_crud" {
   function_name = "${terraform.workspace}-46ki75-notification-lambda-function-notification-crud"
   role          = aws_iam_role.notification_crud.arn
