@@ -25,11 +25,9 @@ async fn invoke(
         .ok_or("Lambda response payload is empty.")?
         .into_inner();
 
-    let result = serde_json::from_slice::<crate::notification::Notification>(&response)?;
+    let results = serde_json::from_slice::<Vec<crate::notification::Notification>>(&response)?;
 
-    Ok(crate::notification::Response {
-        results: vec![result],
-    })
+    Ok(crate::notification::Response { results })
 }
 
 pub async fn put(
@@ -37,9 +35,7 @@ pub async fn put(
     stage_name: &str,
     command: crate::notification::PutCommand,
 ) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
-    let request = crate::notification::Request {
-        command: Some(crate::notification::request::Command::PutCommand(command)),
-    };
+    let request = crate::notification::Request::Put(command);
 
     let response = invoke(sdk_config, stage_name, request).await?;
 
@@ -51,11 +47,7 @@ pub async fn delete(
     stage_name: &str,
     command: crate::notification::DeleteCommand,
 ) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
-    let request = crate::notification::Request {
-        command: Some(crate::notification::request::Command::DeleteCommand(
-            command,
-        )),
-    };
+    let request = crate::notification::Request::Delete(command);
 
     let response = invoke(sdk_config, stage_name, request).await?;
 
@@ -67,9 +59,7 @@ pub async fn list(
     stage_name: &str,
     command: crate::notification::ListCommand,
 ) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
-    let request = crate::notification::Request {
-        command: Some(crate::notification::request::Command::ListCommand(command)),
-    };
+    let request = crate::notification::Request::List(command);
 
     let response = invoke(sdk_config, stage_name, request).await?;
 

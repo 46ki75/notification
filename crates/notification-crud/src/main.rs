@@ -2,11 +2,8 @@ use lambda_runtime::{Error, run, service_fn, tracing};
 
 mod handler;
 
+pub mod notification;
 pub mod operation;
-
-pub mod notification {
-    include!("./generated/notification.rs");
-}
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {

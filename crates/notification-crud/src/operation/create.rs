@@ -1,6 +1,6 @@
 pub async fn put(
     command: crate::notification::PutCommand,
-) -> Result<crate::notification::Notification, lambda_runtime::Error> {
+) -> Result<Vec<crate::notification::Notification>, lambda_runtime::Error> {
     let stage_name = std::env::var("STAGE_NAME")?;
 
     let table_name = format!(
@@ -60,5 +60,5 @@ pub async fn put(
 
     let _response = request.send().await?;
 
-    Ok(notification_cloned)
+    Ok(vec![notification_cloned])
 }
