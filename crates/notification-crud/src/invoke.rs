@@ -47,3 +47,33 @@ pub async fn put(
 
     Ok(response)
 }
+
+pub async fn delete(
+    sdk_config: &aws_config::SdkConfig,
+    stage_name: &str,
+    command: crate::notification::DeleteCommand,
+) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
+    let request = crate::notification::Request {
+        command: Some(crate::notification::request::Command::DeleteCommand(
+            command,
+        )),
+    };
+
+    let response = invoke(sdk_config, stage_name, request).await?;
+
+    Ok(response)
+}
+
+pub async fn list(
+    sdk_config: &aws_config::SdkConfig,
+    stage_name: &str,
+    command: crate::notification::ListCommand,
+) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
+    let request = crate::notification::Request {
+        command: Some(crate::notification::request::Command::ListCommand(command)),
+    };
+
+    let response = invoke(sdk_config, stage_name, request).await?;
+
+    Ok(response)
+}
