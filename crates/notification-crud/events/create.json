@@ -1,5 +1,7 @@
 {
-  "put": {
-    "title": "My Notification"
+  "command": {
+    "PutCommand": {
+      "title": "My Notification"
+    }
   }
 }

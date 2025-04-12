@@ -1,2 +1,5 @@
 pub mod invoke;
-pub mod r#type;
+
+pub mod notification {
+    include!("./generated/notification.rs");
+}

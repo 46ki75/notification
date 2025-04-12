@@ -20,11 +20,11 @@ enum Severity {
 message Notification {
   string pk = 1;
   string title = 2;
-  string details = 3;
+  optional string details = 3;
   Status status = 4;
   Severity severity = 5;
   string notified_at = 6;
-  string url = 7;
+  optional string url = 7;
 }
 
 // request

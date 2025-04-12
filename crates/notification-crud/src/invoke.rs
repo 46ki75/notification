@@ -1,13 +1,17 @@
+use prost::Message;
+
 async fn invoke(
     sdk_config: &aws_config::SdkConfig,
     stage_name: &str,
-    input: crate::r#type::Input,
-) -> Result<crate::r#type::NotificationResult, Box<dyn std::error::Error>> {
+    request: crate::notification::Request,
+) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
     let client = aws_sdk_lambda::Client::new(sdk_config);
 
-    let body = serde_json::to_string(&input)?;
+    let mut body: Vec<u8> = Vec::new();
 
-    let blob = aws_sdk_lambda::primitives::Blob::from(body.as_bytes());
+    request.encode(&mut body)?;
+
+    let blob = aws_sdk_lambda::primitives::Blob::from(body);
 
     let request = client
         .invoke()
@@ -25,7 +29,7 @@ async fn invoke(
         .ok_or("Lambda response payload is empty.")?
         .into_inner();
 
-    let result = serde_json::from_slice::<crate::r#type::NotificationResult>(&response)?;
+    let result = crate::notification::Response::decode(&*response)?;
 
     Ok(result)
 }
@@ -33,14 +37,13 @@ async fn invoke(
 pub async fn put(
     sdk_config: &aws_config::SdkConfig,
     stage_name: &str,
-    input: crate::r#type::PutParameter,
-) -> Result<crate::r#type::Notification, Box<dyn std::error::Error>> {
-    let response = invoke(sdk_config, stage_name, crate::r#type::Input::Put(input)).await?;
+    command: crate::notification::PutCommand,
+) -> Result<crate::notification::Response, Box<dyn std::error::Error>> {
+    let request = crate::notification::Request {
+        command: Some(crate::notification::request::Command::PutCommand(command)),
+    };
 
-    match response {
-        crate::r#type::NotificationResult::Single(notification) => Ok(notification),
-        crate::r#type::NotificationResult::Vector(_) => {
-            Err("Expected a single notification, but got multiple.".into())
-        }
-    }
+    let response = invoke(sdk_config, stage_name, request).await?;
+
+    Ok(response)
 }

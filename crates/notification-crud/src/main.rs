@@ -1,16 +1,27 @@
-use lambda_runtime::{run, service_fn, tracing, Error, LambdaEvent};
+use lambda_runtime::{Error, LambdaEvent, run, service_fn, tracing};
 
 pub mod operation;
-pub mod r#type;
+
+pub mod notification {
+    include!("./generated/notification.rs");
+}
 
 pub async fn function_handler(
-    event: LambdaEvent<crate::r#type::Input>,
-) -> Result<crate::r#type::NotificationResult, Error> {
-    match event.payload {
-        r#type::Input::Put(put_parameter) => {
-            let response = crate::operation::create::put(put_parameter).await?;
-            return Ok(r#type::NotificationResult::Single(response));
+    event: LambdaEvent<crate::notification::Request>,
+) -> Result<crate::notification::Response, Error> {
+    match event
+        .payload
+        .command
+        .ok_or("Command is not set.".to_string())?
+    {
+        notification::request::Command::PutCommand(put_command) => {
+            let response = crate::operation::create::put(put_command).await?;
+            return Ok(notification::Response {
+                results: vec![response],
+            });
         }
+        notification::request::Command::ListCommand(_list_command) => todo!(),
+        notification::request::Command::DeleteCommand(_delete_command) => todo!(),
     };
 }
 

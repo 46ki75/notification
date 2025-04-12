@@ -1,6 +1,6 @@
 pub async fn put(
-    parameter: crate::r#type::PutParameter,
-) -> Result<crate::r#type::Notification, lambda_runtime::Error> {
+    command: crate::notification::PutCommand,
+) -> Result<crate::notification::Notification, lambda_runtime::Error> {
     let stage_name = std::env::var("STAGE_NAME")?;
 
     let table_name = format!(
@@ -14,14 +14,14 @@ pub async fn put(
 
     let pk = uuid::Uuid::new_v4().to_string();
 
-    let notification = crate::r#type::Notification {
+    let notification = crate::notification::Notification {
         pk,
-        title: parameter.title,
-        details: parameter.details,
-        status: parameter.status.unwrap_or_default(),
-        severity: parameter.severity.unwrap_or_default(),
+        title: command.title,
+        details: command.details,
+        status: command.status.unwrap_or_default(),
+        severity: command.severity.unwrap_or_default(),
         notified_at: chrono::Utc::now().to_rfc3339(),
-        url: parameter.url,
+        url: command.url,
     };
 
     let notification_cloned = notification.clone();
