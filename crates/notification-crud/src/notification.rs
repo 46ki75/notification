@@ -50,7 +50,7 @@ impl std::fmt::Display for Status {
             String::from(match self {
                 Status::New => "NEW",
                 Status::Open => "OPEN",
-                Status::Resolved => "RESOLVE",
+                Status::Resolved => "RESOLVED",
                 Status::Suppressed => "SUPPRESSED",
             })
         )
