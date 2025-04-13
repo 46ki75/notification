@@ -8,7 +8,10 @@ pub async fn function_handler(
             let res = crate::operation::put(put_command).await?;
             return Ok(crate::notification::Response { results: res });
         }
-        crate::notification::Request::List(list_command) => todo!(),
+        crate::notification::Request::List(list_command) => {
+            let res = crate::operation::list(list_command).await?;
+            return Ok(crate::notification::Response { results: res });
+        }
         crate::notification::Request::Delete(delete_command) => {
             let res = crate::operation::delete(delete_command).await?;
             return Ok(crate::notification::Response { results: res });

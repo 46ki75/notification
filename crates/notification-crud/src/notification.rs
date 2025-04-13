@@ -57,9 +57,12 @@ impl std::fmt::Display for Status {
     }
 }
 
-impl From<&str> for Status {
-    fn from(value: &str) -> Self {
-        match value {
+impl<T> From<T> for Status
+where
+    T: AsRef<str>,
+{
+    fn from(value: T) -> Self {
+        match value.as_ref() {
             "NEW" => Self::New,
             "OPEN" => Self::Open,
             "RESOLVE" => Self::Resolved,
@@ -96,9 +99,12 @@ impl std::fmt::Display for Severity {
     }
 }
 
-impl From<&str> for Severity {
-    fn from(value: &str) -> Self {
-        match value {
+impl<T> From<T> for Severity
+where
+    T: AsRef<str>,
+{
+    fn from(value: T) -> Self {
+        match value.as_ref() {
             "INFO" => Self::Info,
             "WARN" => Self::Warn,
             "ERROR" => Self::Error,
