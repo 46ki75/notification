@@ -1,5 +1,7 @@
 [package]
 name = "x-46ki75-notification-lib"
+description = "Invoke AWS Lambda Function to publish notifications."
+license = "MIT"
 version = "0.1.0"
 edition = "2024"
 
