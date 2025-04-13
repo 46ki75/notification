@@ -1,5 +1,5 @@
-resource "aws_iam_role" "notification_crud" {
-  name = "${terraform.workspace}-46ki75-notification-iam-role-notification-crud"
+resource "aws_iam_role" "notification_pubilsh" {
+  name = "${terraform.workspace}-46ki75-notification-iam-role-notification-pubilsh"
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -14,8 +14,8 @@ resource "aws_iam_role" "notification_crud" {
   })
 }
 
-resource "aws_iam_policy" "notification_crud" {
-  name        = "${terraform.workspace}-46ki75-internal-iam-policy-lambda-notification-crud"
+resource "aws_iam_policy" "notification_pubilsh" {
+  name        = "${terraform.workspace}-46ki75-internal-iam-policy-lambda-notification-pubilsh"
   description = "Allow lambda to access cloudwatch logs"
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -28,25 +28,28 @@ resource "aws_iam_policy" "notification_crud" {
           "logs:PutLogEvents",
           "xray:PutTraceSegments",
           "xray:PutTelemetryRecords",
-          "dynamodb:Query",
-          "dynamodb:GetItem",
-          "dynamodb:PutItem",
-          "dynamodb:DeleteItem",
         ],
         "Resource" : "*"
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "lambda:Invoke",
+        ],
+        "Resource" : "${aws_lambda_alias.notification_crud.arn}"
       }
     ]
   })
 }
 
-resource "aws_iam_role_policy_attachment" "notification_crud" {
-  role       = aws_iam_role.notification_crud.name
-  policy_arn = aws_iam_policy.notification_crud.arn
+resource "aws_iam_role_policy_attachment" "notification_pubilsh" {
+  role       = aws_iam_role.notification_pubilsh.name
+  policy_arn = aws_iam_policy.notification_pubilsh.arn
 }
 
-resource "aws_lambda_function" "notification_crud" {
-  function_name = "${terraform.workspace}-46ki75-notification-lambda-function-notification-crud"
-  role          = aws_iam_role.notification_crud.arn
+resource "aws_lambda_function" "notification_pubilsh" {
+  function_name = "${terraform.workspace}-46ki75-notification-lambda-function-notification-pubilsh"
+  role          = aws_iam_role.notification_pubilsh.arn
   filename      = "./assets/bootstrap.zip"
   handler       = "bootstrap.handler"
   runtime       = "provided.al2023"
@@ -72,8 +75,8 @@ resource "aws_lambda_function" "notification_crud" {
   }
 }
 
-resource "aws_lambda_alias" "graphql" {
+resource "aws_lambda_alias" "notification_pubilsh" {
   name             = "stable"
-  function_name    = aws_lambda_function.notification_crud.function_name
+  function_name    = aws_lambda_function.notification_pubilsh.function_name
   function_version = "$LATEST"
 }
