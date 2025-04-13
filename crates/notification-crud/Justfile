@@ -1,0 +1,11 @@
+build: 
+    cargo lambda build --release
+
+deploy  STAGE_NAME: build
+    cargo lambda deploy --binary-name notification-crud "{{STAGE_NAME}}-46ki75-notification-lambda-function-notification-crud"
+
+test:
+    cargo test --lib
+
+invoke:
+    STAGE_NAME=dev FUNCTION_NAME=notification-crud ./scripts/invoke.sh

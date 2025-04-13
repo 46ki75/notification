@@ -43,6 +43,8 @@
 
     // Rust
     "ghcr.io/devcontainers/features/rust": {},
+    "./features/cargo-toolkit": {},
+    "ghcr.io/devcontainers-extra/features/zig": {},
 
     // Terraform
     "ghcr.io/devcontainers/features/terraform": {}
