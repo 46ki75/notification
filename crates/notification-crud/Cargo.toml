@@ -7,7 +7,7 @@ edition = "2024"
 
 [dependencies]
 aws-config = "1.6.2"
-aws-sdk-dynamodb = "1.72.0"
+aws-sdk-dynamodb = "1.72.1"
 aws-sdk-lambda = "1.76.0"
 chrono = "0.4.40"
 
