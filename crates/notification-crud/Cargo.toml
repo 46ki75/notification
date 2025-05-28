@@ -11,7 +11,7 @@ aws-sdk-dynamodb = "1.77.0"
 aws-sdk-lambda = "1.81.0"
 chrono = "0.4.41"
 
-lambda_runtime = "0.13.0"
+lambda_runtime = "0.14.1"
 serde = "1"
 serde_json = "1.0.140"
 tokio = { version = "1", features = ["macros"] }
