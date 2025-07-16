@@ -189,9 +189,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-lambda"
-version = "1.86.0"
+version = "1.87.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "64929574f126c2e43201ef76abc5b185fef9b1f66a9afab2e6f8e0cbb04d433a"
+checksum = "b23226c372e13e99e6cd559491c6fd6bf818f60d6343fa69288ce881aa76c4f4"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
