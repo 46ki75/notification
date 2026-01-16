@@ -169,9 +169,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-lambda"
-version = "1.112.0"
+version = "1.113.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1cad866b2e51c3af758e5c8bb941a8c904262663fde53019aa1c5093172c54d3"
+checksum = "04e580e0770852d081af1379ea3074e736639dc6cbb29827dc0d4cd67fc56728"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
@@ -179,6 +179,7 @@ dependencies = [
  "aws-smithy-eventstream",
  "aws-smithy-http",
  "aws-smithy-json",
+ "aws-smithy-observability",
  "aws-smithy-runtime",
  "aws-smithy-runtime-api",
  "aws-smithy-types",
