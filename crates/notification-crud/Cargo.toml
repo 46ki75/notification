@@ -9,7 +9,7 @@ edition = "2024"
 aws-config = "1.8.18"
 aws-sdk-dynamodb = "1.114.0"
 aws-sdk-lambda = "1.126.0"
-chrono = "0.4.44"
+chrono = "0.4.45"
 
 lambda_runtime = "1.2.1"
 serde = "1"
